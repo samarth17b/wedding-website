@@ -1,0 +1,14 @@
+# Internal working files — keep these out of the public repo
+CONTEXT.md
+HANDOFF.md
+Wedding Invite Copy.docx
+Design style 1.jpeg
+Design style 2.jpeg
+Design style 3.jpeg
+
+# Local dev tooling
+.claude/
+
+# OS junk
+Thumbs.db
+.DS_Store

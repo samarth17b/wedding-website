@@ -1,0 +1,962 @@
+:root {
+  --cream: #FBF6EC;
+  --ink-green: #2F4A34;
+  --gold: #B08D57;
+  --pink: #C4436B;
+  --wine: #8E2B36;
+  --text: #3A3A34;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ---------- Decorative side margins ---------- */
+.side-margin {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: clamp(120px, 13vw, 190px);
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease;
+}
+
+/* Revealed by JS only once the hero has scrolled out of view */
+.side-margin.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.side-margin img {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: auto;
+  display: block;
+}
+
+.side-margin--left {
+  left: 0;
+}
+
+.side-margin--left img {
+  left: 0;
+}
+
+.side-margin--right {
+  right: 0;
+}
+
+.side-margin--right img {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* Hide side margins where the viewport is too narrow to spare the room */
+@media (max-width: 1200px) {
+  .side-margin {
+    display: none;
+  }
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(251, 246, 236, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(176, 141, 87, 0.25);
+}
+
+.nav-brand {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--ink-green);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-brand span {
+  color: var(--pink);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-green);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--pink);
+}
+
+.nav-cta {
+  padding: 0.4rem 1.3rem;
+  border: 1.5px solid var(--pink);
+  border-radius: 999px;
+  color: var(--pink) !important;
+}
+
+.nav-cta:hover {
+  background: var(--pink);
+  color: var(--cream) !important;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  width: 26px;
+  height: 2px;
+  background: var(--ink-green);
+  transition: 0.3s;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 7rem 1.5rem 3rem;
+}
+
+.hero-frame-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.hero-frame-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: scaleY(-1);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 560px;
+  padding: 2.5rem 2rem;
+  background: radial-gradient(ellipse 75% 70% at center,
+    rgba(251, 246, 236, 0.92) 0%,
+    rgba(251, 246, 236, 0.85) 55%,
+    rgba(251, 246, 236, 0) 100%);
+}
+
+.hero-monogram {
+  width: clamp(90px, 14vw, 140px);
+  margin-bottom: 0.5rem;
+}
+
+.eyebrow {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.hero-names {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  color: var(--ink-green);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.hero-names .amp {
+  color: var(--pink);
+  font-style: italic;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--wine);
+  margin-bottom: 1.5rem;
+}
+
+.hero-date {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.hero-venue {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--pink);
+}
+
+/* ---------- Sections (shared) ---------- */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-flourish {
+  width: 70px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.section-eyebrow {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  color: var(--ink-green);
+  line-height: 1.1;
+}
+
+/* ---------- Botanical-framed photo (reusable) ---------- */
+.photo-frame {
+  position: relative;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.photo-frame__img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 4px solid #fff;
+  box-shadow: 0 12px 32px rgba(47, 74, 52, 0.16);
+}
+
+.photo-frame__corner {
+  position: absolute;
+  width: 92%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+}
+
+.photo-frame__corner--bl {
+  left: -14%;
+  bottom: -9%;
+}
+
+.photo-frame__corner--tr {
+  right: -14%;
+  top: -9%;
+  transform: scaleY(-1);
+}
+
+/* Feature photo just below the hero */
+.feature {
+  padding-top: 5.5rem;
+  padding-bottom: 4rem;
+  text-align: center;
+}
+
+.photo-frame--feature {
+  width: min(420px, 82vw);
+}
+
+.feature-caption {
+  margin-top: 2.25rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--pink);
+}
+
+/* ---------- Schedule ---------- */
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.75rem;
+}
+
+.event-card {
+  flex: 1 1 280px;
+  max-width: 340px;
+  background: #fff;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-radius: 10px;
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(47, 74, 52, 0.06);
+}
+
+.event-day {
+  display: inline-block;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 0.5rem;
+}
+
+.event-day sup {
+  font-size: 0.6em;
+}
+
+.event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-green);
+  margin-bottom: 0.75rem;
+}
+
+.event-blurb {
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--wine);
+  margin-bottom: 1rem;
+}
+
+.event-time {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.event-note {
+  font-size: 1.05rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.event-venue {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+/* ---------- Schedule timeline (day-grouped) ---------- */
+.days {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.day-group {
+  margin-bottom: 3rem;
+}
+
+.day-group[hidden] {
+  display: none;
+}
+
+.day-head {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.day-badge {
+  display: block;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: var(--ink-green);
+  line-height: 1.1;
+}
+
+.day-date {
+  display: block;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.day-intro {
+  max-width: 520px;
+  margin: 0.75rem auto 0;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--wine);
+}
+
+.event-block {
+  display: flex;
+  gap: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-radius: 10px;
+  padding: 1.5rem 1.6rem;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 6px 18px rgba(47, 74, 52, 0.05);
+}
+
+.event-block[hidden] {
+  display: none;
+}
+
+.event-block .event-time {
+  flex: 0 0 130px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--pink);
+  padding-top: 0.2rem;
+}
+
+.event-body {
+  flex: 1;
+}
+
+.event-body .event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--ink-green);
+  margin-bottom: 0.45rem;
+}
+
+.event-desc {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.event-body .event-note {
+  margin-top: 0.6rem;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* ---------- Shared venue + map ---------- */
+.venue-shared {
+  margin-top: 3.5rem;
+  text-align: center;
+}
+
+.venue-label {
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+
+.venue-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--ink-green);
+  margin-bottom: 0.5rem;
+}
+
+.venue-address {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.venue-map {
+  max-width: 760px;
+  margin: 0 auto 1.25rem;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  box-shadow: 0 8px 24px rgba(47, 74, 52, 0.08);
+  line-height: 0;
+}
+
+.venue-directions {
+  display: inline-block;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--pink);
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.venue-directions:hover {
+  opacity: 0.65;
+}
+
+/* ---------- ISB / graduation section ---------- */
+.isb {
+  text-align: center;
+}
+
+.photo-frame--isb {
+  width: min(460px, 84vw);
+}
+
+.grad-banner-wrap {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.grad-banner {
+  display: inline-block;
+  background: var(--gold);
+  color: #fff;
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.55rem 2.75rem;
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%, 8% 50%);
+  box-shadow: 0 6px 16px rgba(47, 74, 52, 0.18);
+}
+
+.section-intro {
+  max-width: 620px;
+  margin: 1rem auto 0;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.section-subnote {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  color: var(--text-muted, #9a9488);
+}
+
+/* ---------- Accent photo band ---------- */
+.photo-band {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+.photo-frame--accent {
+  width: min(340px, 76vw);
+}
+
+/* ---------- RSVP form ---------- */
+.rsvp-form {
+  max-width: 620px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(47, 74, 52, 0.07);
+}
+
+.field {
+  margin-bottom: 1.4rem;
+}
+
+.field-row {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+.rsvp-form label,
+.field-legend {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--ink-green);
+  margin-bottom: 0.5rem;
+}
+
+.req {
+  color: var(--pink);
+  margin-left: 2px;
+}
+
+.rsvp-form input[type="text"],
+.rsvp-form input[type="email"],
+.rsvp-form input[type="tel"],
+.rsvp-form input[type="number"],
+.rsvp-form input[type="date"],
+.rsvp-form textarea {
+  width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--text);
+  background: var(--cream);
+  border: 1px solid rgba(176, 141, 87, 0.45);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(196, 67, 107, 0.12);
+}
+
+.radio-row,
+.check-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.radio-row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.choice input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--pink);
+}
+
+.choice--block {
+  font-size: 1.15rem;
+  color: var(--ink-green);
+}
+
+.field-hint {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 0.4rem;
+}
+
+.room-fields {
+  margin-top: 1rem;
+}
+
+.attending-only {
+  transition: opacity 0.3s ease;
+}
+
+.attending-only.is-hidden {
+  display: none;
+}
+
+.rsvp-submit {
+  width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: var(--pink);
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.rsvp-submit:hover {
+  background: #a5375a;
+}
+
+.rsvp-submit:active {
+  transform: scale(0.99);
+}
+
+.rsvp-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.rsvp-status {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.15rem;
+}
+
+.rsvp-status.is-success {
+  color: var(--ink-green);
+}
+
+.rsvp-status.is-error {
+  color: #a5375a;
+}
+
+/* ---------- RSVP embed (Google Form) ---------- */
+.rsvp-embed {
+  max-width: 680px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(47, 74, 52, 0.07);
+}
+
+.rsvp-embed iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
+.rsvp-fallback {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.rsvp-fallback a {
+  color: var(--pink);
+}
+
+/* ---------- FAQ ---------- */
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  border-radius: 10px;
+  background: #fff;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.15rem 1.4rem;
+  font-size: 1.35rem;
+  color: var(--ink-green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.6rem;
+  color: var(--pink);
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 1.4rem 1.3rem;
+}
+
+.faq-answer p {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.faq-answer ul {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+}
+
+.faq-answer li {
+  font-size: 1.12rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.faq-answer strong {
+  color: var(--ink-green);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 3.5rem 1.5rem 4rem;
+}
+
+.footer-monogram {
+  width: 80px;
+  height: auto;
+  margin-bottom: 0.75rem;
+}
+
+.footer-names {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--ink-green);
+}
+
+.footer-date {
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .nav {
+    padding: 0.85rem 1.25rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(176, 141, 87, 0.25);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+  }
+
+  .hero {
+    padding: 8rem 1.25rem 3rem;
+  }
+
+  /* Scale the frames up so garlands stay lush on narrow screens,
+     and nudge the top one down so the fixed nav bar doesn't cover it */
+  .hero-frame-top {
+    width: 185%;
+    left: 50%;
+    top: 25px;
+    transform: translateX(-50%);
+  }
+
+  .hero-frame-bottom {
+    width: 185%;
+    left: 50%;
+    transform: translateX(-50%) scaleY(-1);
+  }
+
+  .section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .rsvp-form {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .field-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .radio-row {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .event-block {
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem 1.25rem;
+  }
+
+  .event-block .event-time {
+    flex: none;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-frame-top,
+  .hero-frame-bottom {
+    width: 215%;
+  }
+}
