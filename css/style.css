@@ -853,6 +853,23 @@ body {
   color: var(--ink-green);
 }
 
+.faq-hotel {
+  margin-top: 0.85rem;
+  line-height: 1.55;
+}
+
+.faq-hotel a {
+  color: var(--pink);
+}
+
+.faq-map {
+  margin-top: 0.85rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(176, 141, 87, 0.3);
+  line-height: 0;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   text-align: center;
